@@ -1,6 +1,14 @@
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+  subsets: ["cyrillic"],
+  variable: "--font-montserrat",
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -11,7 +19,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/img/Logo.png" />
       </head>
-      <body>
+      <body className={montserrat.className}>
         <Toaster position="top-center" />
         {children}
       </body>
