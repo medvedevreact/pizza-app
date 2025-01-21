@@ -61,7 +61,7 @@ export const PizzaModalComponent: React.FC<PizzaModalProps> = ({ product }) => {
         <DialogTitle className="hidden"></DialogTitle>
         <div className="flex justify-center items-center w-full  ">
           <img
-            className="w-full max-w-[300px] h-auto lg:max-w-[400px]"
+            className="w-full max-w-[250px] h-auto lg:max-w-[400px]"
             src={product.img}
             alt={product.title}
           />

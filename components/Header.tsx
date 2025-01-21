@@ -92,7 +92,7 @@ export const Header: React.FC<HeaderProps> = ({ className, hasSearch }) => {
             </Cart>
           </div>
         ) : (
-          <div className="flex items-center gap-1 cursor-pointer">
+          <div className="flex items-center gap-3 cursor-pointer">
             <Button
               className=" w-[100px]"
               variant="destructive"

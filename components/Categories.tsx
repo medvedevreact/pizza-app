@@ -20,20 +20,20 @@ export const Categories: React.FC<CategoriesProps> = ({
   const activeCategory = useCategoryStore((state) => state.activeCategory);
 
   return (
-    <div className={cn("h-[75px]  flex items-center bg-white", className)}>
-      <Container>
-        {" "}
-        <ul className=" w-[1280px] flex gap-[60px] ">
+    <div className={cn("h-[75px] flex items-center bg-white", className)}>
+      <Container className="flex justify-start w-full">
+        <ul className="flex flex-wrap gap-[60px]">
           {categories.map((category) => (
-            <a
-              href={`#${category.title}`}
-              className={`cursor-pointer ${
-                category.title == activeCategory ? "text-orange-500" : ""
-              }`}
-              key={category.id}
-            >
-              {category.title}
-            </a>
+            <li key={category.id}>
+              <a
+                href={`#${category.title}`}
+                className={`cursor-pointer  py-2 ${
+                  category.title === activeCategory ? "text-orange-500" : ""
+                }`}
+              >
+                {category.title}
+              </a>
+            </li>
           ))}
         </ul>
       </Container>

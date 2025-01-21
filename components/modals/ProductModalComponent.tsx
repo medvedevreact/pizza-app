@@ -36,7 +36,7 @@ export const ProductModalComponent: React.FC<ProductModalProps> = ({
         <DialogTitle className="hidden"></DialogTitle>
         <div className="flex items-center w-full max-w-[400px]">
           <img
-            className="w-full h-auto"
+            className="w-full max-w-[250px] h-auto lg:max-w-[400px]"
             src={product.img}
             alt={product.title}
           />
