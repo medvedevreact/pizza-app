@@ -36,15 +36,17 @@ export const ProductModalComponent: React.FC<ProductModalProps> = ({
         <DialogTitle className="hidden"></DialogTitle>
         <div className="flex items-center w-full max-w-[400px]">
           <img
-            className="w-full max-w-[250px] h-auto lg:max-w-[400px]"
+            className="w-full max-w-[200px] h-auto md:max-w-[400px]"
             src={product.img}
             alt={product.title}
           />
         </div>
         <div className="bg-[rgb(240,240,240)] flex-grow p-4 flex flex-col justify-between w-full md:w-1/2">
           <div>
-            <h3 className="text-2xl font-semibold mb-4">{product.title}</h3>
-            <p className="mb-4">{product.desc}</p>
+            <h3 className="text-2xl font-semibold lg:mb-4 mb-2">
+              {product.title}
+            </h3>
+            <p className="lg:mb-4 mb-2">{product.desc}</p>
           </div>
           <Button
             onClick={() => {
