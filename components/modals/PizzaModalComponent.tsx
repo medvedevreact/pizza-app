@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { PizzaOptions } from "../PizzaOptions";
 import { Button } from "../ui/button";
 import { useCartStore } from "@/store/cart";
+import toast from "react-hot-toast";
 
 interface PizzaModalProps {
   product: any;
@@ -84,6 +85,7 @@ export const PizzaModalComponent: React.FC<PizzaModalProps> = ({ product }) => {
             variant="destructive"
             onClick={() => {
               addToCart();
+              toast.success("Вы успешно добавили товар в корзину.");
             }}
           >
             + Добавить за {price} Р

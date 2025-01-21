@@ -10,6 +10,7 @@ import { useCartStore } from "@/store/cart";
 import { createOrder } from "@/app/actions";
 import { useUserStore } from "@/store/user";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const schema = z.object({
   firstname: z.string().min(2, "Введите своё имя"),
@@ -57,13 +58,14 @@ export default function Checkout() {
         items: JSON.stringify(cartItems),
         totalAmount: totalPrice,
       });
-
+      toast.success("Вы успешно оформили заказ.");
       router.push("/profile");
       setTimeout(() => {
         form.reset();
         resetCart();
       }, 500);
     } catch (err) {
+      toast.error("При оформлении заказа произошла ошибка");
       console.error("Error creating order:", err);
     }
   };

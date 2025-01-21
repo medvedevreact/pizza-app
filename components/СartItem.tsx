@@ -1,6 +1,7 @@
 import React from "react";
 import { Trash2 } from "lucide-react";
 import { useCartStore } from "@/store/cart";
+import toast from "react-hot-toast";
 
 interface CartItemProps {
   item: any;
@@ -18,6 +19,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
         className="text-gray-300 absolute top-3 right-3 cursor-pointer w-5"
         onClick={() => {
           deleteCartItem(item.id);
+          toast.success("Вы успешно удалили товар из корзины.");
         }}
       />
       <div className="flex items-center space-x-4 w-full mb-3">
@@ -29,9 +31,11 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
         <div>
           <h3 className="text-base font-semibold sm:text-lg">{item.title}</h3>
           <p className="text-xs text-gray-600 sm:text-sm">
-            {item.pizzaSize} см, {item.pizzaType}
+            {item.categoryId === 1
+              ? `${item.pizzaSize} см, ${item.pizzaType}`
+              : `${item.desc}`}
           </p>
-          {item?.ingredients.length > 0 && (
+          {item?.ingredients?.length > 0 && (
             <p className="text-xs text-gray-600 sm:text-sm">
               + {item.ingredients.map((ing) => ing.name).join(", ")}
             </p>

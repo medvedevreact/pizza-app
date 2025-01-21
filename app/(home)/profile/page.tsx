@@ -5,11 +5,14 @@ import { useRouter } from "next/navigation";
 import { Container } from "@/components/Container";
 import { ProfileOrders } from "@/components/ProfileOrders";
 import { useUserStore } from "@/store/user";
+import { getOrders } from "@/app/actions";
 
 export default function Profile() {
   const user = useUserStore((state) => state.user);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [ordersLoading, setOrdersLoading] = useState(true);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const loaderTimeout = setTimeout(() => {
@@ -20,7 +23,7 @@ export default function Profile() {
       if (!user) {
         router.push("/");
       }
-    }, 1000);
+    }, 2000);
 
     return () => {
       clearTimeout(loaderTimeout);
@@ -28,7 +31,24 @@ export default function Profile() {
     };
   }, [user, router]);
 
-  if (loading || !user) {
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const data = await getOrders(user?.uid);
+        setOrders(data);
+      } catch (error) {
+        console.error("Ошибка при получении заказов:", error);
+      } finally {
+        setOrdersLoading(false);
+      }
+    };
+
+    if (user?.uid) {
+      fetchOrders();
+    }
+  }, [user]);
+
+  if (loading || !user || ordersLoading) {
     return (
       <Container>
         <div className="flex flex-col items-center justify-center h-[600px]">
@@ -41,7 +61,7 @@ export default function Profile() {
 
   return (
     <Container>
-      <ProfileOrders userId={user?.uid} />
+      <ProfileOrders orders={orders} />
     </Container>
   );
 }

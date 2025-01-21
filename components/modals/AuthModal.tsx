@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import { X } from "lucide-react";
 import { useUserStore } from "@/store/user";
 import { auth } from "@/configs/firebase.config";
+import toast from "react-hot-toast";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -36,7 +37,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Пароли не совпадают.");
       return;
     }
     createUserWithEmailAndPassword(auth, email, password)
@@ -48,11 +49,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         setPassword("");
         setConfirmPassword("");
         onClose();
+        toast.success("Вы успешно зарегистрировались.");
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("Error occurred: ", errorCode, errorMessage);
+        toast.error("Ошибка при регистрации.");
       });
   };
 
@@ -62,15 +62,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       .then((userCredential) => {
         const user = userCredential.user;
 
-        setUser({ email: user.email!, uid: user.uid }); // Обновляем состояние пользователя
+        setUser({ email: user.email!, uid: user.uid });
         setEmail("");
         setPassword("");
         onClose();
+        toast.success("Вы успешно вошли.");
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("An error occurred: ", errorCode, errorMessage);
+        toast.error("Ошибка при входе.");
       });
   };
 

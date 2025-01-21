@@ -1,24 +1,11 @@
-import { getOrders } from "@/app/actions";
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
 } from "@/components/ui/accordion";
-import { useEffect, useState } from "react";
 
-export const ProfileOrders = ({ userId }) => {
-  const [orders, setOrders] = useState([]);
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      const data = await getOrders(userId);
-      setOrders(data);
-    };
-
-    fetchOrders();
-  }, [userId]);
-
+export const ProfileOrders = ({ orders }) => {
   const reversedOrders = orders.slice().reverse();
 
   return (
@@ -70,9 +57,11 @@ export const ProfileOrders = ({ userId }) => {
                                 {item.title}
                               </h3>
                               <p className="text-xs text-gray-600 sm:text-sm">
-                                {item.pizzaSize} см, {item.pizzaType}
+                                {item.categoryId === 1
+                                  ? `${item.pizzaSize} см, ${item.pizzaType}`
+                                  : `${item.desc}`}
                               </p>
-                              {item?.ingredients.length > 0 && (
+                              {item?.ingredients?.length > 0 && (
                                 <p className="text-xs text-gray-600 sm:text-sm">
                                   +{" "}
                                   {item.ingredients

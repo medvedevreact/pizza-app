@@ -3,6 +3,8 @@ import React from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import { useCartStore } from "@/store/cart";
+import toast from "react-hot-toast";
 
 interface ProductModalProps {
   product: any;
@@ -12,6 +14,21 @@ export const ProductModalComponent: React.FC<ProductModalProps> = ({
   product,
 }) => {
   const router = useRouter();
+  const addCartItem = useCartStore((state) => state.addCartItem);
+
+  const productItem = product.items.find(
+    (item) => item.productId === product.id
+  );
+
+  const addToCart = () => {
+    addCartItem({
+      title: product.title,
+      desc: product.desc,
+      img: product.img,
+
+      price: productItem.price,
+    });
+  };
 
   return (
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
@@ -29,7 +46,14 @@ export const ProductModalComponent: React.FC<ProductModalProps> = ({
             <h3 className="text-2xl font-semibold mb-4">{product.title}</h3>
             <p className="mb-4">{product.desc}</p>
           </div>
-          <Button className="w-full" variant="destructive">
+          <Button
+            onClick={() => {
+              addToCart();
+              toast.success("Вы успешно добавили товар в корзину.");
+            }}
+            className="w-full"
+            variant="destructive"
+          >
             + Добавить за {product.items[0].price} Р
           </Button>
         </div>

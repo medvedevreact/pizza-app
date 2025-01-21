@@ -67,8 +67,8 @@ export const Header: React.FC<HeaderProps> = ({ className, hasSearch }) => {
         {hasSearch && <SearchInput />}
 
         {isLoading ? (
-          <div className="flex items-center gap-3 cursor-pointer">
-            <Button className="ml-4 w-[100px]" variant="destructive" disabled>
+          <div className="flex items-center gap-1 cursor-pointer">
+            <Button className=" w-[100px]" variant="destructive" disabled>
               Загрузка...
             </Button>
             <Cart>
@@ -81,7 +81,7 @@ export const Header: React.FC<HeaderProps> = ({ className, hasSearch }) => {
               <User className="text-orange-500 cursor-pointer" />
             </Link>
             <Button
-              className="ml-4 w-[100px]"
+              className=" w-[100px]"
               variant="destructive"
               onClick={handleSignOut}
             >
@@ -92,9 +92,9 @@ export const Header: React.FC<HeaderProps> = ({ className, hasSearch }) => {
             </Cart>
           </div>
         ) : (
-          <div className="flex items-center gap-3 cursor-pointer">
+          <div className="flex items-center gap-1 cursor-pointer">
             <Button
-              className="ml-4 w-[100px]"
+              className=" w-[100px]"
               variant="destructive"
               onClick={openModal}
             >
