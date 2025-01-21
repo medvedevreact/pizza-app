@@ -28,9 +28,13 @@ export const ProfileOrders = ({ orders }) => {
               >
                 <div className="flex items-center justify-between bg-white p-4 rounded-lg shadow">
                   <div className="flex items-center justify-between w-full">
-                    <h3 className="font-semibold text-xl">Заказ #{order.id}</h3>
-                    <p className="text-sm text-gray-500">
-                      {new Date(order.created_at).toLocaleString()}
+                    <h3 className="font-semibold text-xl">
+                      Заказ <br className="md:hidden block" />#{order.id}
+                    </h3>
+                    <p className="text-sm text-gray-500 sm:block">
+                      {new Date(order.created_at).toLocaleDateString()},{" "}
+                      <br className="md:hidden block" />
+                      {new Date(order.created_at).toLocaleTimeString()}
                     </p>
                     <p className="text-sm text-gray-500 bg-gray-200 rounded-full px-4 py-2">
                       {order.paymentMethod === "card" ? "Карта" : "Наличные"}
