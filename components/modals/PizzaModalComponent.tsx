@@ -71,7 +71,7 @@ export const PizzaModalComponent: React.FC<PizzaModalProps> = ({ product }) => {
             <h3 className="text-2xl font-semibold lg:mb-4 mb-2">
               {product.title}
             </h3>
-            <p className="lg:mb-4 mb-2">{product.desc}</p>
+            <p className="lg:mb-4 mb-2 hidden md:block">{product.desc}</p>
             <PizzaOptions
               product={product}
               size={size}
