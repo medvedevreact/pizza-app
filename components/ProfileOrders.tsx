@@ -6,7 +6,9 @@ import {
 } from "@/components/ui/accordion";
 
 export const ProfileOrders = ({ orders }) => {
-  const reversedOrders = orders.slice().reverse();
+  const sortedOrders = orders
+    .slice()
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
   return (
     <div className="max-w-4xl">
@@ -17,7 +19,7 @@ export const ProfileOrders = ({ orders }) => {
         </p>
       ) : (
         <Accordion type="single" collapsible className="space-y-4 py-[40px]">
-          {reversedOrders.map((order) => {
+          {sortedOrders.map((order) => {
             const parsedItems = JSON.parse(order.items);
 
             return (
