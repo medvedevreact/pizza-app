@@ -22,3 +22,16 @@ export async function getOrders(userId) {
     console.error(error);
   }
 }
+
+export async function getAllOrders() {
+  try {
+    const orders = await prisma.orders.findMany({
+      orderBy: {
+        created_at: "desc",
+      },
+    });
+    return orders;
+  } catch (error) {
+    console.error(error);
+  }
+}

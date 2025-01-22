@@ -12,7 +12,7 @@ export default function HomeLayout({
   return (
     <main className="min-h-screen flex flex-col">
       {" "}
-      <Header hasSearch={true} />
+      <Header />
       <div className="flex-grow">{children}</div>
       {modal}
       <Footer />

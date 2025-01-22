@@ -10,16 +10,30 @@ import { AuthModal } from "./modals/AuthModal";
 import { useUserStore } from "@/store/user";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "@/configs/firebase.config";
-import { ShoppingCart, User } from "lucide-react";
+import { Settings, ShoppingCart, User } from "lucide-react";
 import { Cart } from "./Cart";
 import Link from "next/link";
+import { adminList } from "@/constants/adminList";
 
 interface HeaderProps {
   className?: string;
   hasSearch?: boolean;
+  hasCart?: boolean;
+  hasProfile?: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ className, hasSearch }) => {
+const defaultProps = {
+  hasSearch: true,
+  hasCart: true,
+  hasProfile: true,
+};
+
+export const Header: React.FC<HeaderProps> = ({
+  className,
+  hasSearch = defaultProps.hasSearch,
+  hasCart = defaultProps.hasCart,
+  hasProfile = defaultProps.hasProfile,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,6 +42,10 @@ export const Header: React.FC<HeaderProps> = ({ className, hasSearch }) => {
 
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
+
+  const isAdmin = adminList.includes(String(user?.email));
+
+  console.log(isAdmin);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -71,15 +89,25 @@ export const Header: React.FC<HeaderProps> = ({ className, hasSearch }) => {
             <Button className=" w-[100px]" variant="destructive" disabled>
               Загрузка...
             </Button>
-            <Cart>
-              <ShoppingCart className="text-orange-500" />
-            </Cart>
+            {hasCart && (
+              <Cart>
+                <ShoppingCart className="text-orange-500" />
+              </Cart>
+            )}
           </div>
         ) : user ? (
           <div className="flex items-center gap-3 cursor-pointer">
-            <Link href="/profile">
-              <User className="text-orange-500 cursor-pointer" />
-            </Link>
+            {isAdmin && (
+              <Link href="/dashboard">
+                <Settings className="text-orange-500 cursor-pointer" />
+              </Link>
+            )}
+            {hasProfile && (
+              <Link href="/profile">
+                <User className="text-orange-500 cursor-pointer" />
+              </Link>
+            )}
+
             <Button
               className=" w-[100px]"
               variant="destructive"
@@ -87,9 +115,11 @@ export const Header: React.FC<HeaderProps> = ({ className, hasSearch }) => {
             >
               Выйти
             </Button>
-            <Cart>
-              <ShoppingCart className="text-orange-500" />
-            </Cart>
+            {hasCart && (
+              <Cart>
+                <ShoppingCart className="text-orange-500" />
+              </Cart>
+            )}
           </div>
         ) : (
           <div className="flex items-center gap-3 cursor-pointer">
@@ -100,9 +130,11 @@ export const Header: React.FC<HeaderProps> = ({ className, hasSearch }) => {
             >
               Войти
             </Button>
-            <Cart>
-              <ShoppingCart className="text-orange-500" />
-            </Cart>
+            {hasCart && (
+              <Cart>
+                <ShoppingCart className="text-orange-500" />
+              </Cart>
+            )}
           </div>
         )}
       </Container>
