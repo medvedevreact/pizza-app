@@ -34,7 +34,7 @@ export const ProductModalComponent: React.FC<ProductModalProps> = ({
     <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
       <DialogContent className="flex max-w-[960px] min-h-[400px] bg-white flex-col md:flex-row overflow-y-auto">
         <DialogTitle className="hidden"></DialogTitle>
-        <div className="flex items-center w-full max-w-[400px]">
+        <div className="flex justify-center items-center w-full">
           <img
             className="w-full max-w-[200px] h-auto md:max-w-[400px]"
             src={product.img}
