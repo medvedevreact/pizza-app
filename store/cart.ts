@@ -10,24 +10,9 @@ interface CartState {
   resetCart: () => void;
 }
 
-const saveToLocalStorage = (state: CartState) => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("cart", JSON.stringify(state));
-  }
-};
-
-const loadFromLocalStorage = (): CartState => {
-  if (typeof window !== "undefined") {
-    const storedCart = localStorage.getItem("cart");
-    return storedCart
-      ? JSON.parse(storedCart)
-      : { cartItems: [], totalPrice: 0 };
-  }
-  return { cartItems: [], totalPrice: 0 };
-};
-
-export const useCartStore = create<CartState>((set, get) => ({
-  ...loadFromLocalStorage(),
+export const useCartStore = create<CartState>((set) => ({
+  cartItems: [],
+  totalPrice: 0,
   addCartItem: (cartItem) =>
     set((state) => {
       const existingItem = state.cartItems.find(
@@ -49,12 +34,10 @@ export const useCartStore = create<CartState>((set, get) => ({
           (total, item) => total + item.price * item.quantity,
           0
         );
-        const newState = {
+        return {
           cartItems: updatedCartItems,
           totalPrice: newTotalPrice,
         };
-        saveToLocalStorage(newState);
-        return newState;
       } else {
         const newItem = {
           ...cartItem,
@@ -64,16 +47,15 @@ export const useCartStore = create<CartState>((set, get) => ({
             : 1,
         };
         const newTotalPrice = state.totalPrice + newItem.price;
-        const newState = {
+        return {
           cartItems: [...state.cartItems, newItem],
           totalPrice: newTotalPrice,
         };
-        saveToLocalStorage(newState);
-        return newState;
       }
     }),
   deleteCartItem: (cartItemId) => {
     set((state) => {
+      const item = state.cartItems.find((el) => el.id === cartItemId);
       const updatedCartItems = state.cartItems.filter(
         (item) => item.id !== cartItemId
       );
@@ -81,12 +63,10 @@ export const useCartStore = create<CartState>((set, get) => ({
         (total, item) => total + item.price * item.quantity,
         0
       );
-      const newState = {
+      return {
         cartItems: updatedCartItems,
         totalPrice: newTotalPrice,
       };
-      saveToLocalStorage(newState);
-      return newState;
     });
   },
   decreaseCartItem: (cartItemId) =>
@@ -107,20 +87,14 @@ export const useCartStore = create<CartState>((set, get) => ({
         0
       );
 
-      const newState = {
+      return {
         cartItems: updatedCartItems,
         totalPrice: newTotalPrice,
       };
-      saveToLocalStorage(newState);
-      return newState;
     }),
   resetCart: () =>
-    set(() => {
-      const newState = {
-        cartItems: [],
-        totalPrice: 0,
-      };
-      saveToLocalStorage(newState);
-      return newState;
+    set({
+      cartItems: [],
+      totalPrice: 0,
     }),
 }));
