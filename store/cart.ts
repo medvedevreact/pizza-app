@@ -11,12 +11,19 @@ interface CartState {
 }
 
 const saveToLocalStorage = (state: CartState) => {
-  localStorage.setItem("cart", JSON.stringify(state));
+  if (typeof window !== "undefined") {
+    localStorage.setItem("cart", JSON.stringify(state));
+  }
 };
 
 const loadFromLocalStorage = (): CartState => {
-  const storedCart = localStorage.getItem("cart");
-  return storedCart ? JSON.parse(storedCart) : { cartItems: [], totalPrice: 0 };
+  if (typeof window !== "undefined") {
+    const storedCart = localStorage.getItem("cart");
+    return storedCart
+      ? JSON.parse(storedCart)
+      : { cartItems: [], totalPrice: 0 };
+  }
+  return { cartItems: [], totalPrice: 0 };
 };
 
 export const useCartStore = create<CartState>((set, get) => ({
