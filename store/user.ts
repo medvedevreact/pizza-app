@@ -4,8 +4,11 @@ interface UserState {
   user: {
     email: string;
     uid: string;
+    emailVerified: boolean;
   } | null;
-  setUser: (user: { email: string; uid: string } | null) => void;
+  setUser: (
+    user: { email: string; uid: string; emailVerified: boolean } | null
+  ) => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({

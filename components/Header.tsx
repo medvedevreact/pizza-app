@@ -45,8 +45,6 @@ export const Header: React.FC<HeaderProps> = ({
 
   const isAdmin = adminList.includes(String(user?.email));
 
-  console.log(isAdmin);
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);

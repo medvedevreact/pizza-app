@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  sendEmailVerification,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { Button } from "../ui/button";
@@ -28,7 +30,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const setUser = useUserStore((state) => state.setUser);
+  const { setUser } = useUserStore((state) => state);
 
   const toggleForm = () => setIsLogin(!isLogin);
 
@@ -43,13 +45,26 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        console.log(user);
 
-        setUser({ email: user.email!, uid: user.uid });
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-        onClose();
-        toast.success("Вы успешно зарегистрировались.");
+        sendEmailVerification(user)
+          .then(() => {
+            setUser({
+              email: user.email!,
+              uid: user.uid,
+              emailVerified: user.emailVerified,
+            });
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
+            onClose();
+            toast.success(
+              "Вы успешно зарегистрировались. Пожалуйста, проверьте свою почту для верификации."
+            );
+          })
+          .catch((error) => {
+            toast.error("Ошибка при отправке письма для верификации.");
+          });
       })
       .catch((error) => {
         toast.error("Ошибка при регистрации.");
@@ -62,7 +77,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       .then((userCredential) => {
         const user = userCredential.user;
 
-        setUser({ email: user.email!, uid: user.uid });
+        setUser({
+          email: user.email!,
+          uid: user.uid,
+          emailVerified: user.emailVerified,
+        });
         setEmail("");
         setPassword("");
         onClose();

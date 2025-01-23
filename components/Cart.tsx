@@ -14,6 +14,7 @@ import { Button } from "./ui/button";
 import { useUserStore } from "@/store/user";
 import { useRouter } from "next/navigation";
 import { CartItem } from "./СartItem";
+import toast from "react-hot-toast";
 
 interface CartProps {
   children: React.ReactNode;
@@ -25,10 +26,14 @@ export const Cart: React.FC<CartProps> = ({ children }) => {
   const router = useRouter();
 
   const moveToOrderPage = () => {
-    if (user) {
+    if (user && user.emailVerified) {
       router.push("/checkout");
+    } else if (user && !user.emailVerified) {
+      toast.error(
+        "Подтвердите электронную почту. Если вы уже подтвердили, пожалуйста, обновите страницу, чтобы перейти к оформлению заказа."
+      );
     } else {
-      alert(
+      toast.error(
         "Вы не авторизованы. Авторизуйтесь, чтобы перейти к оформлению заказа."
       );
     }
