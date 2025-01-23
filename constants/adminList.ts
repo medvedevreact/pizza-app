@@ -1,1 +1,1 @@
-export const adminList = ["admin@mail.ru"];
+export const adminList = ["ivan2004_gimnasia@mail.ru"];
