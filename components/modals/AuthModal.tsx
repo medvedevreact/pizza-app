@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   sendEmailVerification,
   signInWithEmailAndPassword,
 } from "firebase/auth";
@@ -29,6 +28,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { setUser } = useUserStore((state) => state);
 
@@ -38,8 +38,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     if (password !== confirmPassword) {
       toast.error("Пароли не совпадают.");
+      setIsLoading(false);
       return;
     }
     createUserWithEmailAndPassword(auth, email, password)
@@ -60,15 +62,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           })
           .catch((error) => {
             toast.error("Ошибка при отправке письма для верификации.");
-          });
+          })
+          .finally(() => setIsLoading(false));
       })
       .catch((error) => {
         toast.error("Ошибка при регистрации.");
+        setIsLoading(false);
       });
   };
 
   const handleSignIn = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -81,7 +86,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       })
       .catch((error) => {
         toast.error("Ошибка при входе.");
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -133,8 +139,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             </div>
           )}
           <div className="flex justify-between items-center">
-            <Button type="submit">
-              {isLogin ? "Войти" : "Зарегистрироваться"}
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="w-32 flex items-center justify-center"
+            >
+              {isLoading ? (
+                <div className="border-4 border-t-4 border-gray-700 border-t-white rounded-full w-6 h-6 animate-spin"></div>
+              ) : isLogin ? (
+                "Войти"
+              ) : (
+                "Зарегистрироваться"
+              )}
             </Button>
             <button
               type="button"
