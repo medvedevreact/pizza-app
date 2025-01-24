@@ -25,13 +25,17 @@ export const Cart: React.FC<CartProps> = ({ children }) => {
   const user = useUserStore((state) => state.user);
   const router = useRouter();
 
-  const moveToOrderPage = () => {
-    if (user && user.emailVerified) {
-      router.push("/checkout");
-    } else if (user && !user.emailVerified) {
-      toast.error(
-        "Подтвердите электронную почту. Если вы уже подтвердили, пожалуйста, обновите страницу, чтобы перейти к оформлению заказа."
-      );
+  const moveToOrderPage = async () => {
+    if (user) {
+      await user.reload(); // Обновляем данные пользователя
+      console.log(user.emailVerified);
+      if (user.emailVerified) {
+        router.push("/checkout");
+      } else {
+        toast.error(
+          "Подтвердите электронную почту. Сообщение уже отправлено на почту"
+        );
+      }
     } else {
       toast.error(
         "Вы не авторизованы. Авторизуйтесь, чтобы перейти к оформлению заказа."

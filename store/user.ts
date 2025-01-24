@@ -1,14 +1,9 @@
+import { User } from "firebase/auth";
 import { create } from "zustand";
 
 interface UserState {
-  user: {
-    email: string;
-    uid: string;
-    emailVerified: boolean;
-  } | null;
-  setUser: (
-    user: { email: string; uid: string; emailVerified: boolean } | null
-  ) => void;
+  user: User | null;
+  setUser: (user: User | null) => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({

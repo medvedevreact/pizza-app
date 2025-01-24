@@ -49,11 +49,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         sendEmailVerification(user)
           .then(() => {
-            setUser({
-              email: user.email!,
-              uid: user.uid,
-              emailVerified: user.emailVerified,
-            });
+            setUser(user);
             setEmail("");
             setPassword("");
             setConfirmPassword("");
@@ -77,11 +73,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       .then((userCredential) => {
         const user = userCredential.user;
 
-        setUser({
-          email: user.email!,
-          uid: user.uid,
-          emailVerified: user.emailVerified,
-        });
+        setUser(user);
         setEmail("");
         setPassword("");
         onClose();

@@ -19,6 +19,11 @@ const firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 
+const actionCodeSettings = {
+  url: "https://pizza-app-neon-zeta.vercel.app/",
+  handleCodeInApp: true,
+};
+
 const auth = getAuth(app);
 
-export { auth };
+export { auth, actionCodeSettings };
