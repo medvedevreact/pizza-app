@@ -142,7 +142,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-32 flex items-center justify-center"
+              className={`flex items-center justify-center ${
+                isLogin ? "w-[120px]" : "w-[176px]"
+              }`}
             >
               {isLoading ? (
                 <div className="border-4 border-t-4 border-gray-700 border-t-white rounded-full w-6 h-6 animate-spin"></div>
@@ -152,6 +154,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 "Зарегистрироваться"
               )}
             </Button>
+
             <button
               type="button"
               className="text-blue-500"
