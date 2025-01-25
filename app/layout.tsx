@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import NextTopLoader from "nextjs-toploader";
 
 import { Montserrat } from "next/font/google";
 
@@ -20,6 +21,7 @@ export default function RootLayout({
         <link rel="icon" href="/img/Logo.png" />
       </head>
       <body className={montserrat.className}>
+        <NextTopLoader color="#FF0000" />
         <Toaster position="top-center" />
         {children}
       </body>

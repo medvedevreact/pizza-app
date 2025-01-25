@@ -4,6 +4,11 @@ import { Products } from "@/components/Products";
 
 import { prisma } from "@/prisma/prisma-client";
 
+export const metadata = {
+  title: "EL PIZZA | Главная страница",
+  description: "Главная страница, пиццерия EL PIZZA, Королёв",
+};
+
 export default async function Home() {
   const pizzas = await prisma.products.findMany({
     where: {

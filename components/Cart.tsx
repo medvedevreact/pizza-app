@@ -1,6 +1,5 @@
-// Cart.tsx
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -24,22 +23,30 @@ export const Cart: React.FC<CartProps> = ({ children }) => {
   const { cartItems, totalPrice } = useCartStore((state) => state);
   const user = useUserStore((state) => state.user);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const moveToOrderPage = async () => {
+    setIsLoading(true);
     if (user) {
-      await user.reload(); // Обновляем данные пользователя
-      console.log(user.emailVerified);
+      await user.reload();
+
       if (user.emailVerified) {
         router.push("/checkout");
       } else {
         toast.error(
           "Подтвердите электронную почту. Сообщение уже отправлено на почту"
         );
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
       }
     } else {
       toast.error(
         "Вы не авторизованы. Авторизуйтесь, чтобы перейти к оформлению заказа."
       );
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
     }
   };
 
@@ -75,8 +82,17 @@ export const Cart: React.FC<CartProps> = ({ children }) => {
                 <p className="text-lg font-semibold">Сумма заказа:</p>
                 <p className="text-lg font-semibold">{totalPrice} ₽</p>
               </div>
-              <Button variant="destructive" onClick={() => moveToOrderPage()}>
-                Оформить заказ
+              <Button
+                variant="destructive"
+                onClick={() => moveToOrderPage()}
+                disabled={isLoading}
+                className="flex items-center justify-center w-full"
+              >
+                {isLoading ? (
+                  <div className="border-4 border-t-4 border-gray-700 border-t-white rounded-full w-6 h-6 animate-spin"></div>
+                ) : (
+                  "Оформить заказ"
+                )}
               </Button>
             </div>
           </SheetFooter>

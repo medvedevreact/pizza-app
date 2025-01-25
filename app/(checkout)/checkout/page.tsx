@@ -18,10 +18,7 @@ const schema = z.object({
   phone: z
     .string()
     .regex(/^\+7[1-9]\d{9}$/, "Введите номер телефона в формате +7**********"),
-  comment: z
-    .string()
-
-    .optional(),
+  comment: z.string().optional(),
 });
 
 export default function Checkout() {
@@ -38,6 +35,7 @@ export default function Checkout() {
   const { totalPrice, cartItems, resetCart } = useCartStore((state) => state);
   const { user } = useUserStore((state) => state);
   const [paymentMethod, setPaymentMethod] = useState("card");
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
@@ -46,6 +44,7 @@ export default function Checkout() {
   };
 
   const onSubmit = async (data) => {
+    setIsLoading(true);
     try {
       await createOrder({
         userId: String(user?.uid),
@@ -63,12 +62,15 @@ export default function Checkout() {
       setTimeout(() => {
         form.reset();
         resetCart();
+        setIsLoading(false); // Сброс состояния загрузки
       }, 500);
     } catch (err) {
       toast.error("При оформлении заказа произошла ошибка");
       console.error("Error creating order:", err);
+      setIsLoading(false); // Сброс состояния загрузки
     }
   };
+
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -80,9 +82,11 @@ export default function Checkout() {
               <CheckoutPersonal />
             </div>
             <CheckoutTotal
+              user={user}
               totalPrice={totalPrice}
               paymentMethod={paymentMethod}
               handlePaymentChange={handlePaymentChange}
+              isLoading={isLoading}
             />
           </div>
         </div>

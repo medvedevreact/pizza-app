@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { WhiteBlock } from "./WhiteBlock";
 import { Button } from "@/components/ui/button";
@@ -9,12 +8,16 @@ interface CheckoutTotalProps {
   totalPrice: number;
   paymentMethod: string;
   handlePaymentChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  isLoading: boolean;
+  user: any;
 }
 
 export const CheckoutTotal: React.FC<CheckoutTotalProps> = ({
   totalPrice,
   paymentMethod,
   handlePaymentChange,
+  isLoading,
+  user,
 }) => {
   return (
     <WhiteBlock className="lg:w-[380px] h-full w-full" title="Итого:">
@@ -62,11 +65,15 @@ export const CheckoutTotal: React.FC<CheckoutTotalProps> = ({
           </div>
         </div>
         <Button
-          disabled={totalPrice === 0}
+          disabled={totalPrice === 0 || isLoading || !user}
           type="submit"
-          className="w-full py-2 bg-orange-500 text-white  mb-3"
+          className="w-full  py-2 bg-orange-500 text-white mb-3 flex items-center justify-center"
         >
-          Создать заказ
+          {isLoading ? (
+            <div className="border-4 border-t-4 border-gray-700 border-t-white rounded-full w-6 h-6 animate-spin"></div>
+          ) : (
+            "Создать заказ"
+          )}
         </Button>
       </div>
     </WhiteBlock>
