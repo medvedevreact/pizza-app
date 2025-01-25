@@ -21,7 +21,7 @@ export default function RootLayout({
         <link rel="icon" href="/img/Logo.png" />
       </head>
       <body className={montserrat.className}>
-        <NextTopLoader color="#FF0000" />
+        <NextTopLoader showSpinner={false} color="#FF0000" />
         <Toaster position="top-center" />
         {children}
       </body>
