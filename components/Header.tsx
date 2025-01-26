@@ -45,6 +45,8 @@ export const Header: React.FC<HeaderProps> = ({
 
   const isAdmin = adminList.includes(String(user?.email));
 
+  console.log(user);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
@@ -68,7 +70,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className={cn(`h-[150px]`, className)}>
+    <header className={cn("h-[150px]", className)}>
       <Container
         className={`flex items-center justify-between py-8 ${
           hasSearch === false ? "border-b border-gray-300" : ""
@@ -77,19 +79,22 @@ export const Header: React.FC<HeaderProps> = ({
         <Link href={"/"}>
           <div className="flex items-center mr-4 cursor-pointer">
             <Image src={Logo} alt="Логотип" width={70} height={70} />
-            <h1 className="md:text-3xl text-xl ">El PIZZA</h1>
+            <h1 className="md:text-3xl text-xl">El PIZZA</h1>
           </div>
         </Link>
         {hasSearch && <SearchInput />}
 
         {isLoading ? (
           <div className="flex items-center gap-1 cursor-pointer">
-            <Button className=" w-[100px]" variant="destructive" disabled>
+            <Button className="w-[100px]" variant="destructive" disabled>
               Загрузка...
             </Button>
             {hasCart && (
               <Cart>
-                <ShoppingCart className="text-orange-500" />
+                <ShoppingCart
+                  data-testid="cartIcon"
+                  className="text-orange-500"
+                />
               </Cart>
             )}
           </div>
@@ -107,7 +112,7 @@ export const Header: React.FC<HeaderProps> = ({
             )}
 
             <Button
-              className=" w-[100px]"
+              className="w-[100px]"
               variant="destructive"
               onClick={handleSignOut}
             >
@@ -115,14 +120,17 @@ export const Header: React.FC<HeaderProps> = ({
             </Button>
             {hasCart && (
               <Cart>
-                <ShoppingCart className="text-orange-500" />
+                <ShoppingCart
+                  data-testid="cartIcon"
+                  className="text-orange-500"
+                />
               </Cart>
             )}
           </div>
         ) : (
           <div className="flex items-center gap-3 cursor-pointer">
             <Button
-              className=" w-[100px]"
+              className="w-[100px]"
               variant="destructive"
               onClick={openModal}
             >
@@ -130,7 +138,10 @@ export const Header: React.FC<HeaderProps> = ({
             </Button>
             {hasCart && (
               <Cart>
-                <ShoppingCart className="text-orange-500" />
+                <ShoppingCart
+                  data-testid="cartIcon"
+                  className="text-orange-500"
+                />
               </Cart>
             )}
           </div>

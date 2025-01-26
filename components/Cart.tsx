@@ -51,53 +51,55 @@ export const Cart: React.FC<CartProps> = ({ children }) => {
   };
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent className="p-4 flex flex-col h-full">
-        <SheetHeader>
-          <SheetTitle
-            hidden={cartItems.length === 0}
-            className="mb-4 text-lg sm:text-xl"
-          >
-            Ваша корзина:
-          </SheetTitle>
-        </SheetHeader>
-        <div className="flex-grow overflow-y-auto space-y-4">
-          {cartItems.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full">
-              <img src="/img/emptyCartIcon.png" className="mb-4" alt="" />
-              <p className="text-lg font-semibold text-center">
-                Ваша корзина пуста. Пожалуйста, добавьте товары, чтобы
-                продолжить.
-              </p>
-            </div>
-          ) : (
-            cartItems.map((item) => <CartItem key={item.id} item={item} />)
-          )}
-        </div>
-        {cartItems.length != 0 && (
-          <SheetFooter className="mt-6">
-            <div className="flex flex-col w-full">
-              <div className="flex justify-between items-center w-full mb-4">
-                <p className="text-lg font-semibold">Сумма заказа:</p>
-                <p className="text-lg font-semibold">{totalPrice} ₽</p>
+    <div data-testid="cart">
+      <Sheet>
+        <SheetTrigger asChild>{children}</SheetTrigger>
+        <SheetContent className="p-4 flex flex-col h-full">
+          <SheetHeader>
+            <SheetTitle
+              hidden={cartItems.length === 0}
+              className="mb-4 text-lg sm:text-xl"
+            >
+              Ваша корзина:
+            </SheetTitle>
+          </SheetHeader>
+          <div className="flex-grow overflow-y-auto space-y-4">
+            {cartItems.length === 0 ? (
+              <div className="flex flex-col items-center justify-center h-full">
+                <img src="/img/emptyCartIcon.png" className="mb-4" alt="" />
+                <p className="text-lg font-semibold text-center">
+                  Ваша корзина пуста. Пожалуйста, добавьте товары, чтобы
+                  продолжить.
+                </p>
               </div>
-              <Button
-                variant="destructive"
-                onClick={() => moveToOrderPage()}
-                disabled={isLoading}
-                className="flex items-center justify-center w-full"
-              >
-                {isLoading ? (
-                  <div className="border-4 border-t-4 border-gray-700 border-t-white rounded-full w-6 h-6 animate-spin"></div>
-                ) : (
-                  "Оформить заказ"
-                )}
-              </Button>
-            </div>
-          </SheetFooter>
-        )}
-      </SheetContent>
-    </Sheet>
+            ) : (
+              cartItems.map((item) => <CartItem key={item.id} item={item} />)
+            )}
+          </div>
+          {cartItems.length != 0 && (
+            <SheetFooter className="mt-6">
+              <div className="flex flex-col w-full">
+                <div className="flex justify-between items-center w-full mb-4">
+                  <p className="text-lg font-semibold">Сумма заказа:</p>
+                  <p className="text-lg font-semibold">{totalPrice} ₽</p>
+                </div>
+                <Button
+                  variant="destructive"
+                  onClick={() => moveToOrderPage()}
+                  disabled={isLoading}
+                  className="flex items-center justify-center w-full"
+                >
+                  {isLoading ? (
+                    <div className="border-4 border-t-4 border-gray-700 border-t-white rounded-full w-6 h-6 animate-spin"></div>
+                  ) : (
+                    "Оформить заказ"
+                  )}
+                </Button>
+              </div>
+            </SheetFooter>
+          )}
+        </SheetContent>
+      </Sheet>
+    </div>
   );
 };

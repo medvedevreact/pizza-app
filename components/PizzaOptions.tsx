@@ -125,7 +125,7 @@ export const PizzaOptions: React.FC<PizzaOptionsProps> = ({
       </div>
 
       <h2 className="text-lg font-semibold">Дополнительные ингредиенты:</h2>
-      <div className="max-h-40 overflow-y-auto">
+      <div className="max-h-[120px] overflow-y-auto">
         <table className="min-w-full bg-white">
           <thead>
             <tr>

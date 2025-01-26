@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Container Renders component 1`] = `
+<div
+  class="mx-auto max-w-[1310px] pr-[15px] pl-[15px]"
+>
+  Test Content
+</div>
+`;

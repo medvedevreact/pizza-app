@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer Renders component 1`] = `
+<footer
+  class="bg-[rgb(228,228,228)] text-gray-800 py-6 text-center"
+>
+  <div
+    class="social-icons flex justify-center mb-4"
+  >
+    <a
+      class="mx-4 hover:text-orange-400"
+      href="#"
+    >
+      Facebook
+    </a>
+    <a
+      class="mx-4 hover:text-orange-400"
+      href="#"
+    >
+      Instagram
+    </a>
+    <a
+      class="mx-4 hover:text-orange-400"
+      href="#"
+    >
+      Twitter
+    </a>
+  </div>
+  <p
+    class="mb-2"
+  >
+    © 2025 El Pizza. Все права защищены.
+  </p>
+  <p>
+    Контакты:
+     
+    <a
+      class="hover:text-orange-400"
+      href="mailto:info@elpizza.com"
+    >
+      info@elpizza.com
+    </a>
+     
+    | Телефон: +123 456 7890
+  </p>
+</footer>
+`;
+
+exports[`renders Footer component correctly 1`] = `
+<footer
+  class="bg-[rgb(228,228,228)] text-gray-800 py-6 text-center"
+>
+  <div
+    class="social-icons flex justify-center mb-4"
+  >
+    <a
+      class="mx-4 hover:text-orange-400"
+      href="#"
+    >
+      Facebook
+    </a>
+    <a
+      class="mx-4 hover:text-orange-400"
+      href="#"
+    >
+      Instagram
+    </a>
+    <a
+      class="mx-4 hover:text-orange-400"
+      href="#"
+    >
+      Twitter
+    </a>
+  </div>
+  <p
+    class="mb-2"
+  >
+    © 2025 El Pizza. Все права защищены.
+  </p>
+  <p>
+    Контакты:
+     
+    <a
+      class="hover:text-orange-400"
+      href="mailto:info@elpizza.com"
+    >
+      info@elpizza.com
+    </a>
+     
+    | Телефон: +123 456 7890
+  </p>
+</footer>
+`;
