@@ -46,6 +46,7 @@ export const CheckoutTotal: React.FC<CheckoutTotalProps> = ({
               Картой на кассе
             </label>
             <label
+              data-testid="cashLabel"
               className={`px-4 py-2 border-2 rounded-full cursor-pointer transition-colors ${
                 paymentMethod === "cash"
                   ? "border-orange-500 bg-orange-300"
@@ -53,6 +54,7 @@ export const CheckoutTotal: React.FC<CheckoutTotalProps> = ({
               }`}
             >
               <input
+                data-testid="cashBtn"
                 type="radio"
                 name="paymentMethod"
                 value="cash"

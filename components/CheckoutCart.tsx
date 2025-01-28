@@ -16,7 +16,9 @@ export const CheckoutCart: React.FC<CheckoutCartProps> = ({}) => {
     <WhiteBlock className="mb-5" title="1. Корзина">
       <ul className="flex flex-col gap-3 max-h-[500px] overflow-y-auto p-2">
         {cartItems.map((item) => (
-          <CartItem key={item.id} item={item} />
+          <li key={item.id}>
+            <CartItem item={item} />
+          </li>
         ))}
       </ul>
     </WhiteBlock>

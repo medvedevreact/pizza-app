@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://pizza-app-neon-zeta.vercel.app/api",
+  baseURL: "https://www.elpizza-korolev.ru/api",
 });
 
 export default instance;

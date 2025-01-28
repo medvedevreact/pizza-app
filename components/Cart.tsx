@@ -53,7 +53,9 @@ export const Cart: React.FC<CartProps> = ({ children }) => {
   return (
     <div data-testid="cart">
       <Sheet>
-        <SheetTrigger asChild>{children}</SheetTrigger>
+        <SheetTrigger data-testid="trigger" asChild>
+          {children}
+        </SheetTrigger>
         <SheetContent className="p-4 flex flex-col h-full">
           <SheetHeader>
             <SheetTitle
