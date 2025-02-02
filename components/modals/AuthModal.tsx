@@ -99,6 +99,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     >
       <div className="bg-white p-8 z-20 rounded-lg shadow-lg w-96 relative">
         <button
+          data-testid="onClose"
           className="absolute top-3 right-3 text-red-500"
           onClick={onClose}
         >
@@ -106,9 +107,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         </button>
         <h2 className="text-2xl mb-4">{isLogin ? "Вход" : "Регистрация"}</h2>
         <form onSubmit={isLogin ? handleSignIn : handleRegister}>
+          javascript Copy
           <div className="mb-4">
-            <label className="block text-gray-700">Email</label>
+            <label htmlFor="email" className="block text-gray-700">
+              Email
+            </label>
             <input
+              id="email"
               type="email"
               className="w-full p-2 border border-gray-300 rounded"
               value={email}
@@ -117,8 +122,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Пароль</label>
+            <label htmlFor="password" className="block text-gray-700">
+              Пароль
+            </label>
             <input
+              id="password"
               type="password"
               className="w-full p-2 border border-gray-300 rounded"
               value={password}
@@ -128,8 +136,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           </div>
           {!isLogin && (
             <div className="mb-4">
-              <label className="block text-gray-700">Подтвердите пароль</label>
+              <label htmlFor="confirmPassword" className="block text-gray-700">
+                Подтвердите пароль
+              </label>
               <input
+                id="confirmPassword"
                 type="password"
                 className="w-full p-2 border border-gray-300 rounded"
                 value={confirmPassword}

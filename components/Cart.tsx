@@ -83,7 +83,12 @@ export const Cart: React.FC<CartProps> = ({ children }) => {
               <div className="flex flex-col w-full">
                 <div className="flex justify-between items-center w-full mb-4">
                   <p className="text-lg font-semibold">Сумма заказа:</p>
-                  <p className="text-lg font-semibold">{totalPrice} ₽</p>
+                  <p
+                    data-testid="total-price"
+                    className="text-lg font-semibold"
+                  >
+                    {totalPrice} ₽
+                  </p>
                 </div>
                 <Button
                   variant="destructive"

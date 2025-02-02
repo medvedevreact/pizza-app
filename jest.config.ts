@@ -23,6 +23,7 @@ const config: Config = {
   ],
   coverageDirectory: "coverage",
   coverageReporters: ["text", "lcov"], // Добавьте 'text' для вывода в терминале
+  moduleFileExtensions: ["js", "ts", "jsx", "tsx", "node"],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
